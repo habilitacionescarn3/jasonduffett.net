@@ -1,0 +1,30 @@
+{
+  "name": "@jasonduffett-net/cdk",
+  "version": "0.0.0",
+  "private": true,
+  "description": "AWS CDK infrastructure for jasonduffett.net (domain, hosting, DNS).",
+  "type": "module",
+  "main": "./dist/index.js",
+  "types": "./dist/index.d.ts",
+  "scripts": {
+    "clean": "rm -rf dist cdk.out",
+    "build": "tsc -p tsconfig.build.json",
+    "typecheck": "tsc --noEmit",
+    "test": "vitest run --passWithNoTests",
+    "test:watch": "vitest",
+    "cdk": "cdk",
+    "synth": "cdk synth",
+    "deploy": "cdk deploy",
+    "diff": "cdk diff"
+  },
+  "dependencies": {
+    "aws-cdk-lib": "^2.180.0",
+    "constructs": "^10.6.0"
+  },
+  "devDependencies": {
+    "@types/node": "^25.6.0",
+    "aws-cdk": "^2.180.0",
+    "tsx": "^4.19.2",
+    "vitest": "^4.1.4"
+  }
+}

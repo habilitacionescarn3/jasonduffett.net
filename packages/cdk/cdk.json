@@ -1,0 +1,10 @@
+{
+  "app": "npx tsx src/index.ts",
+  "watch": {
+    "include": ["src/**"],
+    "exclude": ["node_modules", "dist", "cdk.out"]
+  },
+  "context": {
+    "@aws-cdk/core:newStyleStackSynthesis": true
+  }
+}
