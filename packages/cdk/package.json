@@ -17,14 +17,41 @@
     "deploy": "cdk deploy",
     "diff": "cdk diff"
   },
+  "nx": {
+    "targets": {
+      "synth": {
+        "dependsOn": [
+          "build"
+        ],
+        "outputs": [
+          "{projectRoot}/cdk.out"
+        ],
+        "cache": true
+      },
+      "deploy": {
+        "dependsOn": [
+          "build"
+        ],
+        "cache": false
+      },
+      "diff": {
+        "dependsOn": [
+          "build"
+        ],
+        "cache": false
+      }
+    }
+  },
   "dependencies": {
+    "@composurecdk/cloudformation": "^0.3.4",
+    "@composurecdk/core": "^0.3.4",
+    "@composurecdk/route53": "^0.3.5",
     "aws-cdk-lib": "^2.180.0",
     "constructs": "^10.6.0"
   },
   "devDependencies": {
     "@types/node": "^25.6.0",
     "aws-cdk": "^2.180.0",
-    "tsx": "^4.19.2",
     "vitest": "^4.1.4"
   }
 }

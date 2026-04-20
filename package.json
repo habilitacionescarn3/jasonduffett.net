@@ -12,6 +12,9 @@
     "test": "nx run-many -t test",
     "build": "nx run-many -t build",
     "clean": "nx run-many -t clean",
+    "synth": "nx run @jasonduffett-net/cdk:synth",
+    "diff": "nx run @jasonduffett-net/cdk:diff",
+    "deploy": "nx run @jasonduffett-net/cdk:deploy",
     "verify": "npm run format:check && npm run build && npm run lint && npm run test"
   },
   "author": "Jason Duffett",

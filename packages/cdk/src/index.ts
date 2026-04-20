@@ -1,14 +1,6 @@
 import { App } from "aws-cdk-lib";
-import { SiteStack } from "./site-stack.js";
+import { createDnsApp } from "./dns-app.js";
 
 const app = new App();
-
-new SiteStack(app, "JasonduffettNetSite", {
-  domainName: "jasonduffett.net",
-  env: {
-    account: process.env.CDK_DEFAULT_ACCOUNT,
-    region: process.env.CDK_DEFAULT_REGION,
-  },
-});
-
+createDnsApp(app);
 app.synth();

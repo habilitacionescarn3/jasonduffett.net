@@ -1,5 +1,6 @@
 {
-  "app": "npx tsx src/index.ts",
+  "app": "node dist/index.js",
+  "profile": "jasonduffett.net",
   "watch": {
     "include": ["src/**"],
     "exclude": ["node_modules", "dist", "cdk.out"]

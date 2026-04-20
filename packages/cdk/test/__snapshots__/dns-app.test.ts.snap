@@ -1,0 +1,290 @@
+// Vitest Snapshot v1, https://vitest.dev/guide/snapshot.html
+
+exports[`dns-app > template > matches the expected synthesised template 1`] = `
+{
+  "Description": "DNS for jasonduffett.net",
+  "Outputs": {
+    "NameServers": {
+      "Description": "Set these as the NS records at the domain registrar to delegate the zone.",
+      "Value": {
+        "Fn::Join": [
+          ",",
+          {
+            "Fn::GetAtt": [
+              "DNSzone02D37B85",
+              "NameServers",
+            ],
+          },
+        ],
+      },
+    },
+  },
+  "Parameters": {
+    "BootstrapVersion": {
+      "Default": "/cdk-bootstrap/hnb659fds/version",
+      "Description": "Version of the CDK Bootstrap resources in this environment, automatically retrieved from SSM Parameter Store. [cdk:skip]",
+      "Type": "AWS::SSM::Parameter::Value<String>",
+    },
+  },
+  "Resources": {
+    "DNSrecordsaapex8FF223FF": {
+      "Properties": {
+        "HostedZoneId": {
+          "Ref": "DNSzone02D37B85",
+        },
+        "Name": "jasonduffett.net.",
+        "ResourceRecords": [
+          "88.208.252.9",
+        ],
+        "TTL": "300",
+        "Type": "A",
+      },
+      "Type": "AWS::Route53::RecordSet",
+    },
+    "DNSrecordsaexchange687E7020": {
+      "Properties": {
+        "HostedZoneId": {
+          "Ref": "DNSzone02D37B85",
+        },
+        "Name": "exchange.jasonduffett.net.",
+        "ResourceRecords": [
+          "213.171.192.50",
+        ],
+        "TTL": "300",
+        "Type": "A",
+      },
+      "Type": "AWS::Route53::RecordSet",
+    },
+    "DNSrecordsamail1FDC8FBC": {
+      "Properties": {
+        "HostedZoneId": {
+          "Ref": "DNSzone02D37B85",
+        },
+        "Name": "mail.jasonduffett.net.",
+        "ResourceRecords": [
+          "213.171.216.40",
+        ],
+        "TTL": "300",
+        "Type": "A",
+      },
+      "Type": "AWS::Route53::RecordSet",
+    },
+    "DNSrecordsamailserver75C33A47": {
+      "Properties": {
+        "HostedZoneId": {
+          "Ref": "DNSzone02D37B85",
+        },
+        "Name": "mailserver.jasonduffett.net.",
+        "ResourceRecords": [
+          "213.171.216.40",
+        ],
+        "TTL": "300",
+        "Type": "A",
+      },
+      "Type": "AWS::Route53::RecordSet",
+    },
+    "DNSrecordsamcp881F747F": {
+      "Properties": {
+        "HostedZoneId": {
+          "Ref": "DNSzone02D37B85",
+        },
+        "Name": "mcp.jasonduffett.net.",
+        "ResourceRecords": [
+          "213.171.195.10",
+        ],
+        "TTL": "300",
+        "Type": "A",
+      },
+      "Type": "AWS::Route53::RecordSet",
+    },
+    "DNSrecordsasmtp0FB5153D": {
+      "Properties": {
+        "HostedZoneId": {
+          "Ref": "DNSzone02D37B85",
+        },
+        "Name": "smtp.jasonduffett.net.",
+        "ResourceRecords": [
+          "213.171.216.50",
+        ],
+        "TTL": "300",
+        "Type": "A",
+      },
+      "Type": "AWS::Route53::RecordSet",
+    },
+    "DNSrecordsawebmailE7D34734": {
+      "Properties": {
+        "HostedZoneId": {
+          "Ref": "DNSzone02D37B85",
+        },
+        "Name": "webmail.jasonduffett.net.",
+        "ResourceRecords": [
+          "213.171.216.231",
+        ],
+        "TTL": "300",
+        "Type": "A",
+      },
+      "Type": "AWS::Route53::RecordSet",
+    },
+    "DNSrecordsawww630B0F82": {
+      "Properties": {
+        "HostedZoneId": {
+          "Ref": "DNSzone02D37B85",
+        },
+        "Name": "www.jasonduffett.net.",
+        "ResourceRecords": [
+          "88.208.252.9",
+        ],
+        "TTL": "300",
+        "Type": "A",
+      },
+      "Type": "AWS::Route53::RecordSet",
+    },
+    "DNSrecordscnamelivemail1domainkey767E594B": {
+      "Properties": {
+        "HostedZoneId": {
+          "Ref": "DNSzone02D37B85",
+        },
+        "Name": "livemail1._domainkey.jasonduffett.net.",
+        "ResourceRecords": [
+          "livemail1._domainkey.39769.dkim.livemail.co.uk.",
+        ],
+        "TTL": "300",
+        "Type": "CNAME",
+      },
+      "Type": "AWS::Route53::RecordSet",
+    },
+    "DNSrecordscnamelivemail2domainkey73757D99": {
+      "Properties": {
+        "HostedZoneId": {
+          "Ref": "DNSzone02D37B85",
+        },
+        "Name": "livemail2._domainkey.jasonduffett.net.",
+        "ResourceRecords": [
+          "livemail2._domainkey.39769.dkim.livemail.co.uk.",
+        ],
+        "TTL": "300",
+        "Type": "CNAME",
+      },
+      "Type": "AWS::Route53::RecordSet",
+    },
+    "DNSrecordscnamelivemail3domainkey00824C9E": {
+      "Properties": {
+        "HostedZoneId": {
+          "Ref": "DNSzone02D37B85",
+        },
+        "Name": "livemail3._domainkey.jasonduffett.net.",
+        "ResourceRecords": [
+          "livemail3._domainkey.39769.dkim.livemail.co.uk.",
+        ],
+        "TTL": "300",
+        "Type": "CNAME",
+      },
+      "Type": "AWS::Route53::RecordSet",
+    },
+    "DNSrecordscnamelivemail4domainkeyEA7BAFB8": {
+      "Properties": {
+        "HostedZoneId": {
+          "Ref": "DNSzone02D37B85",
+        },
+        "Name": "livemail4._domainkey.jasonduffett.net.",
+        "ResourceRecords": [
+          "livemail4._domainkey.39769.dkim.livemail.co.uk.",
+        ],
+        "TTL": "300",
+        "Type": "CNAME",
+      },
+      "Type": "AWS::Route53::RecordSet",
+    },
+    "DNSrecordsmxapexA289EED1": {
+      "Properties": {
+        "HostedZoneId": {
+          "Ref": "DNSzone02D37B85",
+        },
+        "Name": "jasonduffett.net.",
+        "ResourceRecords": [
+          "10 mailserver.livemail.co.uk.",
+        ],
+        "TTL": "300",
+        "Type": "MX",
+      },
+      "Type": "AWS::Route53::RecordSet",
+    },
+    "DNSrecordstxtapexA7521EF9": {
+      "Properties": {
+        "HostedZoneId": {
+          "Ref": "DNSzone02D37B85",
+        },
+        "Name": "jasonduffett.net.",
+        "ResourceRecords": [
+          ""MS=ms66482160"",
+          ""v=spf1 mx a include:_spf.livemail.co.uk ~all"",
+        ],
+        "TTL": "300",
+        "Type": "TXT",
+      },
+      "Type": "AWS::Route53::RecordSet",
+    },
+    "DNSrecordstxtdmarc78E74FBC": {
+      "Properties": {
+        "HostedZoneId": {
+          "Ref": "DNSzone02D37B85",
+        },
+        "Name": "_dmarc.jasonduffett.net.",
+        "ResourceRecords": [
+          ""v=DMARC1; p=none;"",
+        ],
+        "TTL": "300",
+        "Type": "TXT",
+      },
+      "Type": "AWS::Route53::RecordSet",
+    },
+    "DNSrecordstxtdzcnugetFEE793D8": {
+      "Properties": {
+        "HostedZoneId": {
+          "Ref": "DNSzone02D37B85",
+        },
+        "Name": "dzc.nuget.jasonduffett.net.",
+        "ResourceRecords": [
+          ""K2G6Wa8y"",
+        ],
+        "TTL": "300",
+        "Type": "TXT",
+      },
+      "Type": "AWS::Route53::RecordSet",
+    },
+    "DNSzone02D37B85": {
+      "Properties": {
+        "Name": "jasonduffett.net.",
+      },
+      "Type": "AWS::Route53::HostedZone",
+    },
+  },
+  "Rules": {
+    "CheckBootstrapVersion": {
+      "Assertions": [
+        {
+          "Assert": {
+            "Fn::Not": [
+              {
+                "Fn::Contains": [
+                  [
+                    "1",
+                    "2",
+                    "3",
+                    "4",
+                    "5",
+                  ],
+                  {
+                    "Ref": "BootstrapVersion",
+                  },
+                ],
+              },
+            ],
+          },
+          "AssertDescription": "CDK bootstrap stack version 6 required. Please run 'cdk bootstrap' with a recent version of the CDK CLI.",
+        },
+      ],
+    },
+  },
+}
+`;
