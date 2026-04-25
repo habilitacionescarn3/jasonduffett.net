@@ -44,10 +44,9 @@ npm run deploy   # apply
 Each of these builds the CDK package first via Nx's task graph (cached when inputs are
 unchanged). A first-time account also needs `npx cdk bootstrap` once per account/region.
 
-## One-time domain delegation
+## Domain delegation
 
-The `jasonduffett.net` zone is currently hosted at LiveDNS. After the **first** successful
-`deploy`, switch the registrar to point at the new Route 53 zone:
+The `jasonduffett.net` is registered with [FastHosts](https://admin.fasthosts.co.uk/DomainNames/3867580/). To update the name servers of the zone:
 
 1. Read the new name servers from the stack output:
 
@@ -58,16 +57,11 @@ The `jasonduffett.net` zone is currently hosted at LiveDNS. After the **first** 
      --output text
    ```
 
-2. At the registrar (the company that bills for the domain — not LiveDNS), replace the
-   existing NS records (`ns1/ns2/ns3.livedns.co.uk`) with the four Route 53 name servers
-   from step 1.
+2. At the registrar ([FastHosts](https://admin.fasthosts.co.uk/DomainNames/3867580/)), replace the
+   existing NS records with the Route 53 name servers from step 1.
 
 3. Wait for propagation (a few minutes to a few hours). Verify with:
 
    ```sh
    dig +short NS jasonduffett.net
    ```
-
-4. Once the new name servers are authoritative, the LiveDNS zone can be deleted.
-
-This step is one-time — subsequent deploys do not change the name servers.
