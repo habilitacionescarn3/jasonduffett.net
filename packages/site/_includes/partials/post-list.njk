@@ -3,11 +3,12 @@
   <div class="year">{{ group.year }}</div>
   <ul class="posts">
     {% for post in group.posts %}
-    <li>
+    {% set cat = post.data.tags | category %}
+    <li{% if cat %} data-category="{{ cat }}"{% endif %}>
+      {% include "partials/ornaments/sparkle.njk" %}
       <time datetime="{{ post.date | htmlDateString }}">{{ post.date | shortDate }}</time>
       <a class="title" href="{{ post.url | rel }}">{{ post.data.title }}</a>
-      {% set cat = post.data.tags | category %}
-      {% if cat %}<span class="tag {{ cat }}">{{ cat | capitalize }}</span>{% endif %}
+      {% if cat %}<span class="tag {{ cat }}">{{ cat }}</span>{% endif %}
     </li>
     {% endfor %}
   </ul>

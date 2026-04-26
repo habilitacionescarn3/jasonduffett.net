@@ -3,7 +3,25 @@ layout: layouts/base.njk
 title: ""
 eleventyExcludeFromCollections: true
 ---
-<p class="intro"><strong>Hello.</strong> I'm Jason — an infrastructure engineer by day, a ukulele tinkerer by evening. This is where I keep notes on the things I build, break, and play.</p>
+<section class="hero">
+  <div class="hero-text">
+    <h1 class="hero-headline">
+      <span class="line">these</span>
+      <span class="line"><span class="accent-1">things</span></span>
+      <span class="line">i <span class="accent-2">do.</span></span>
+    </h1>
+    <span class="hero-squiggle">{% include "partials/ornaments/squiggle.njk" %}</span>
+    <p class="hero-tagline">by day, <em>infrastructure</em>; by night, <strong>ukulele</strong>. these are the notes that didn&rsquo;t fit on a hard drive.</p>
+  </div>
+  <figure class="hero-sketch">
+    <img src="{{ '/assets/sketch-profile.jpeg' | rel }}" alt="Hand-drawn self-portrait of Jason &mdash; wild hair, stubble, skull t-shirt, blue jeans." />
+  </figure>
+</section>
+
+<div class="section-heading">
+  {% include "partials/ornaments/sparkle.njk" %}
+  <span>recent things</span>
+</div>
 
 {% set posts = collections.posts %}
 {% include "partials/post-list.njk" %}

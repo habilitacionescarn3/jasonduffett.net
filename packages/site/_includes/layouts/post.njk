@@ -2,12 +2,15 @@
 layout: layouts/base.njk
 ---
 <article>
-  <h1>{{ title }}</h1>
-  <div class="meta">
-    <time datetime="{{ page.date | htmlDateString }}">{{ page.date | readableDate }}</time>
-    {% set cat = tags | category %}
-    {% if cat %}<span class="tag {{ cat }}">{{ cat | capitalize }}</span>{% endif %}
-  </div>
+  <header class="post-head">
+    <h1>{{ title }}</h1>
+    <div class="meta">
+      <time datetime="{{ page.date | htmlDateString }}">{{ page.date | readableDate }}</time>
+      {% set cat = tags | category %}
+      {% if cat %}<span class="tag {{ cat }}">{{ cat }}</span>{% endif %}
+    </div>
+    <span class="post-divider">{% include "partials/ornaments/squiggle.njk" %}</span>
+  </header>
 
   {{ content | safe }}
 </article>
