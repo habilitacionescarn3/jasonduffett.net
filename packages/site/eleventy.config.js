@@ -12,6 +12,11 @@ export default function (eleventyConfig) {
   eleventyConfig.addPlugin(rssPlugin);
   eleventyConfig.addPlugin(syntaxHighlight);
 
+  eleventyConfig.amendLibrary("md", (md) => {
+    md.set({ typographer: true });
+    md.enable(["replacements", "smartquotes"]);
+  });
+
   eleventyConfig.addPassthroughCopy({ assets: "assets" });
 
   eleventyConfig.addGlobalData("currentYear", () => new Date().getFullYear());

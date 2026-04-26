@@ -10,16 +10,28 @@ eleventyExcludeFromCollections: true
 
 # about
 
-<p class="lead">I&rsquo;m <strong>Jason Duffett</strong>. By day I work on infrastructure &mdash; networks, certificates, the boring plumbing that keeps software reachable. By night I play the ukulele, badly but happily.</p>
+I'm **Jason Duffett**. I'm a software engineer, infrastructure engineer, engineering manager, manager-of-managers, multi-instrumentalist, father, husband, music fan, and general pain-in-the-ass (in no particular order).
 
-This site is where the two halves meet. The [tech]({{ '/tech/' | rel }}) posts are working notes from problems I&rsquo;ve actually solved; the [music]({{ '/music/' | rel }}) posts are arrangements and recordings I want to keep somewhere other than a hard drive. The [misc]({{ '/misc/' | rel }}) ones are everything else &mdash; mostly beer, occasionally Tumblr meta from a previous life.
+I've worked for startups, "Big Tech", and large professional services firms in Australia, London, and Edinburgh. I maintain and create numerous open source projects to support my professional roles and just because I still enjoy creating software after more than 30 years of hacking.
 
-Written in Markdown, rendered by [Eleventy](https://www.11ty.dev/), deployed to AWS CloudFront by [composureCDK](https://github.com/laazyj/composureCDK).
+I've played guitar, ukulele, banjo, or drums in different groups, from casual to professional, since my teenage years and you'll often see me performing in different guises around Edinburgh, especially during the Fringe. I've dabbled in home recording for decades, and that's something else I might end up posting here.
 
-No cookies, no analytics, no tracking. If you want to hear about new posts, the [RSS feed]({{ '/feed.xml' | rel }}) is the right door.
+This site is where it all converges. The [tech]({{ '/tech/' | rel }}) posts are working notes from problems I've worked on and ideas I'm still playing with; the [music]({{ '/music/' | rel }}) posts include arrangements and recordings I want to keep somewhere other than a hard drive. The [misc]({{ '/misc/' | rel }}) ones are everything else --- beer, food, and other peccadillos of life that I think are worth noting.
+
+I write when I feel like it and there will often be long periods of inactivity as my attention goes elsewhere. In this content/slop-rich world, I doubt anyone will notice.
+
+## technical
+
+This blog is written in Markdown, rendered by [Eleventy](https://www.11ty.dev/), with infrastructure composed and managed in AWS using the excellent [composureCDK](https://github.com/laazyj/composureCDK).
+
+No ads, no tracking, minimal analytics. If you want to hear about new posts, the [RSS feed]({{ '/feed.xml' | rel }}) is your friend.
+
+## copyright
+
+The profile sketch of me is an original by my young daughter ((c) 2025 Clara Dineen-Duffett). All textual content is by me ((c) Jason Duffett). I make no claims on lyrics or musical scores in the arrangements I post --- these remain the property of the original copyright holders. Everything else is licensed under [CC BY 4.0](https://creativecommons.org/licenses/by/4.0/). Use it responsibly, attribute properly, don't be a dick.
 
 </div>
 <figure class="hero-sketch about-sketch">
-  <img src="{{ '/assets/sketch-profile.jpeg' | rel }}" alt="Hand-drawn self-portrait of Jason &mdash; wild hair, stubble, skull t-shirt, blue jeans." />
+  <img src="{{ '/assets/sketch-profile.jpeg' | rel }}" alt="Hand-drawn self-portrait of Jason — wild hair, stubble, skull t-shirt, blue jeans." />
 </figure>
 </div>

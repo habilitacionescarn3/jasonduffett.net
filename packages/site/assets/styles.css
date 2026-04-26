@@ -686,7 +686,7 @@ article pre code {
   color: var(--paper);
 }
 
-.about-prose .lead {
+.about-prose > p:first-of-type {
   font-family: var(--hand);
   font-weight: 500;
   font-size: clamp(1.25rem, 4.4vw, 1.55rem);
@@ -696,7 +696,7 @@ article pre code {
   overflow-wrap: break-word;
 }
 
-.about-prose .lead strong {
+.about-prose > p:first-of-type strong {
   color: var(--tech);
   font-weight: 500;
 }
