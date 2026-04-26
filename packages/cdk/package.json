@@ -12,7 +12,8 @@
     "test:watch": "vitest",
     "cdk": "cdk",
     "synth": "cdk synth",
-    "deploy": "cdk deploy",
+    "deploy": "cdk deploy --all",
+    "deploy:stack": "cdk deploy",
     "diff": "cdk diff",
     "check:redirects": "node scripts/check-redirects.mjs"
   },
@@ -32,6 +33,13 @@
         "cache": true
       },
       "deploy": {
+        "dependsOn": [
+          "build",
+          "@jasonduffett-net/site:build"
+        ],
+        "cache": false
+      },
+      "deploy:stack": {
         "dependsOn": [
           "build",
           "@jasonduffett-net/site:build"

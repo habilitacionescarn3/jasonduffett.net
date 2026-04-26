@@ -10,8 +10,8 @@ Monorepo for `jasonduffett.net` — infrastructure and blog.
 ## Site — develop locally
 
 ```sh
-npx nx run @jasonduffett-net/site:start     # hot-reload dev server at http://localhost:8080
-npx nx run @jasonduffett-net/site:build     # write ./packages/site/dist
+npm run site:start     # hot-reload dev server at http://localhost:8080
+npm run site:build     # write ./packages/site/dist
 ```
 
 Posts live under `packages/site/content/tech/` or `packages/site/content/music/` as
@@ -23,19 +23,34 @@ Nx orchestrates all per-package work (build/test/typecheck/clean) and caches res
 root `npm run` scripts below delegate to Nx — prefer them over invoking workspace scripts
 directly so you benefit from the task graph and cache.
 
+Cross-cutting:
+
 - `npm run build` — build all packages.
 - `npm run typecheck` — typecheck all packages.
 - `npm test` — run tests across all packages.
 - `npm run clean` — remove build outputs across all packages.
 - `npm run lint` / `npm run lint:fix` — ESLint across the repo.
 - `npm run format` / `npm run format:check` — Prettier across the repo.
-- `npm run synth` / `npm run diff` / `npm run deploy` — CDK targets (build runs automatically as a dependency).
 - `npm run verify` — format check, build, lint, and test (CI parity).
+
+Site (`site:*`):
+
+- `npm run site:start` / `npm run site:build` / `npm run site:clean`.
+
+CDK (`cdk:*`) — each runs build + site build first via Nx's task graph:
+
+- `npm run cdk:synth` — render CloudFormation for all stacks.
+- `npm run cdk:diff` — preview changes for all stacks.
+- `npm run cdk:deploy` — deploy **all** stacks. Default for simplicity; review the
+  per-stack snapshot diffs under `packages/cdk/test/__snapshots__/` first.
+- `npm run cdk:deploy:stack -- <StackName>` — escape hatch for a single stack
+  (e.g. `npm run cdk:deploy:stack -- JasonDuffettNetDnsStack`).
+- `npm run cdk:test` — run cdk unit + snapshot tests.
+- `npm run cdk:test:update` — regenerate snapshots after intentional infra changes.
 
 ### Stacks
 
-The CDK app is a single top-level `compose()` of two subsystems (DNS, Site) routed across
-three CloudFormation stacks:
+The CDK app is a single top-level `compose()` routed across five CloudFormation stacks:
 
 - **`JasonDuffettNetDnsStack`** (`eu-west-2`) — Route 53 hosted zone + all DNS records
   (A, CNAME, MX, TXT). Route 53 is a global service; the region choice is cosmetic.
@@ -44,13 +59,19 @@ three CloudFormation stacks:
   CloudFront.
 - **`JasonDuffettNetSiteStack`** (`eu-west-2`) — S3 bucket, CloudFront distribution,
   CloudFront Function (`www`→apex + old-URL 301s), bucket deployment of the Eleventy
-  output, and an SNS topic collecting recommended alarms from the bucket and
-  distribution.
+  output, and an SNS topic collecting site-region alarm notifications.
+- **`JasonDuffettNetUsEast1AlertsStack`** (`us-east-1`) — SNS topic shared by every
+  us-east-1 alarm (cert + CloudFront). Standalone with no downstream deps so any
+  us-east-1 stack can target it without creating a cycle.
+- **`JasonDuffettNetCdnAlarmsStack`** (`us-east-1`) — CloudFront CloudWatch alarms.
+  CloudFront metrics only emit in `us-east-1`, so the alarms must live there too.
+  Kept separate from the cert stack to avoid a `cdn ↔ cert` cycle (alarms read the
+  distribution id from the site stack, which depends on the cert stack).
 
-All three stacks opt in to `crossRegionReferences: true`, which lets CDK auto-generate the
-SSM-parameter + custom-resource plumbing for the cross-region edge (`zone → cert`).
-Deployment order is inferred automatically from these references, so no `addDependency`
-calls are needed.
+Every stack opts in to `crossRegionReferences: true`, which lets CDK auto-generate the
+SSM-parameter + custom-resource plumbing for cross-region edges (`zone → cert`,
+`cdn → cdnAlarms`, `*alerts → alarmActions`). Deployment order is inferred automatically
+from these references, so no `addDependency` calls are needed.
 
 **Cutover pending:** the apex and `www` A records in `ZONE_RECORDS` still point at the
 Livemail IP. The CloudFront distribution is provisioned and reachable at its
@@ -63,6 +84,8 @@ redirecting end users.
 ```sh
 npx nx run @jasonduffett-net/cdk:check:redirects  # validate live 301s match redirects.json
 ```
+
+(No root-level alias — this is a manual post-deploy check, not part of the standard flow.)
 
 `redirects.json` is committed and derived from each post's `originalUrl` frontmatter; there
 is no regeneration step. Run `check:redirects` after a deploy (or against any `BASE_URL`)
@@ -82,13 +105,24 @@ The CDK app uses the standard `CDK_DEFAULT_ACCOUNT` / `CDK_DEFAULT_REGION` envir
 variables. Authenticate with the target AWS account first (e.g. `aws sso login`), then:
 
 ```sh
-npm run synth    # render CloudFormation
-npm run diff     # preview changes
-npm run deploy   # apply
+npm run cdk:synth    # render CloudFormation
+npm run cdk:diff     # preview changes
+npm run cdk:deploy   # apply (all stacks)
 ```
 
-Each of these builds the CDK package first via Nx's task graph (cached when inputs are
-unchanged).
+Each of these builds the CDK package and the site first via Nx's task graph (cached when
+inputs are unchanged). To deploy a single stack:
+
+```sh
+npm run cdk:deploy:stack -- JasonDuffettNetSiteStack
+```
+
+### Reviewing infra changes
+
+`packages/cdk/test/system.test.ts` snapshots the synthesised CloudFormation for every
+stack. Any change that affects the templates (DNS records, alarm thresholds, distribution
+config) shows up in the snapshot diff in the PR. If you intend the change, regenerate
+with `npm run cdk:test:update`. If you don't, you have a regression.
 
 ### First-time setup
 
