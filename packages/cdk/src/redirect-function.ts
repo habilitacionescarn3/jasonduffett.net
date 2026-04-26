@@ -47,6 +47,15 @@ function handler(event) {
     };
   }
 
+  // Eleventy emits pretty URLs as <path>/index.html. CloudFront's
+  // defaultRootObject only rewrites "/" → "/index.html", so map directory-
+  // style requests onto their index file before the S3 origin sees them.
+  if (uri.endsWith("/")) {
+    req.uri = uri + "index.html";
+  } else if (uri.lastIndexOf(".") < uri.lastIndexOf("/")) {
+    req.uri = uri + "/index.html";
+  }
+
   return req;
 }
 `.trim();
