@@ -20,6 +20,7 @@ describe("app synthesis", () => {
     const app = buildApp({
       account: "111111111111",
       siteContentPath: resolve(import.meta.dirname, "fixtures", "site"),
+      alertEmail: "alerts@example.invalid",
     });
     templates = Object.fromEntries(
       STACK_NAMES.map((name) => [

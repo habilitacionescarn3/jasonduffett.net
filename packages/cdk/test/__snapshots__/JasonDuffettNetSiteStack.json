@@ -667,6 +667,16 @@
         "TreatMissingData": "notBreaching"
       }
     },
+    "jasonduffettnetsiteAlertsEmailSubscription23DDDC25": {
+      "Type": "AWS::SNS::Subscription",
+      "Properties": {
+        "Endpoint": "alerts@example.invalid",
+        "Protocol": "email",
+        "TopicArn": {
+          "Ref": "jasonduffettnetsiteAlerts842D6C29"
+        }
+      }
+    },
     "jasonduffettnethealthCheck0335EDCA": {
       "Type": "AWS::Route53::HealthCheck",
       "Properties": {

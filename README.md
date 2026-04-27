@@ -97,13 +97,20 @@ npx nx graph                             # open the task/dependency graph
 ## Deploying
 
 The CDK app uses the standard `CDK_DEFAULT_ACCOUNT` / `CDK_DEFAULT_REGION` environment
-variables. Authenticate with the target AWS account first (e.g. `aws sso login`), then:
+variables, plus `ALERT_EMAIL` (the address subscribed to both alarm topics — synth fails
+if it is unset). Authenticate with the target AWS account first (e.g. `aws sso login`),
+then:
 
 ```sh
+export ALERT_EMAIL=you@example.com
 npm run cdk:synth    # render CloudFormation
 npm run cdk:diff     # preview changes
 npm run cdk:deploy   # apply (all stacks)
 ```
+
+After the first deploy, AWS sends one confirmation email per topic (us-east-1 and
+eu-west-2). Click both confirm links — alerts only flow once the subscriptions are in
+the `Confirmed` state.
 
 Each of these builds the CDK package and the site first via Nx's task graph (cached when
 inputs are unchanged). To deploy a single stack:

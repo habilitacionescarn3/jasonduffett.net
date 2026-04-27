@@ -9,6 +9,7 @@ import { S3BucketOrigin } from "aws-cdk-lib/aws-cloudfront-origins";
 import { SnsAction } from "aws-cdk-lib/aws-cloudwatch-actions";
 import { HealthCheckType } from "aws-cdk-lib/aws-route53";
 import { Source } from "aws-cdk-lib/aws-s3-deployment";
+import { EmailSubscription } from "aws-cdk-lib/aws-sns-subscriptions";
 
 import { compose, ref } from "@composurecdk/core";
 import { createCertificateBuilder, type CertificateBuilderResult } from "@composurecdk/acm";
@@ -70,7 +71,7 @@ const topicArnOutput = (refName: "usEast1Alerts" | "siteAlerts", role: string) =
   scope: refName,
 });
 
-export function createSystem(stacks: SystemStacks, siteContentPath: string) {
+export function createSystem(stacks: SystemStacks, siteContentPath: string, alertEmail: string) {
   const { dnsStack, usEast1AlertsStack, certStack, siteStack, cdnAlarmsStack } = stacks;
 
   const hostedZone = ref<HostedZoneBuilderResult>("zone").get("hostedZone");
@@ -101,8 +102,12 @@ export function createSystem(stacks: SystemStacks, siteContentPath: string) {
         .validationZone(hostedZone),
 
       // CloudWatch alarms can only target same-region SNS topics, so one topic per region.
-      usEast1Alerts: createTopicBuilder().displayName("jasonduffett.net us-east-1 alerts"),
-      siteAlerts: createTopicBuilder().displayName("jasonduffett.net site alerts"),
+      usEast1Alerts: createTopicBuilder()
+        .displayName("jasonduffett.net us-east-1 alerts")
+        .addSubscription("email", new EmailSubscription(alertEmail)),
+      siteAlerts: createTopicBuilder()
+        .displayName("jasonduffett.net site alerts")
+        .addSubscription("email", new EmailSubscription(alertEmail)),
 
       // Site
       bucket: createBucketBuilder().accessLogging(true).removalPolicy(RemovalPolicy.RETAIN),

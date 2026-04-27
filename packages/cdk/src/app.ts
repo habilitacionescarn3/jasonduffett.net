@@ -13,13 +13,15 @@ export interface BuildAppOptions {
   readonly account: string | undefined;
   /** Directory whose contents are uploaded to the site bucket. */
   readonly siteContentPath: string;
+  /** Email address subscribed to both alarm topics. */
+  readonly alertEmail: string;
 }
 
 /**
  * Constructs the App + stacks but does not call `synth()`. Tests import this
  * to snapshot the same wiring CDK actually deploys.
  */
-export function buildApp({ account, siteContentPath }: BuildAppOptions): App {
+export function buildApp({ account, siteContentPath, alertEmail }: BuildAppOptions): App {
   const app = new App();
 
   // Both ends of a cross-region ref must opt in, so every stack sets the flag.
@@ -61,6 +63,7 @@ export function buildApp({ account, siteContentPath }: BuildAppOptions): App {
   createSystem(
     { dnsStack, usEast1AlertsStack, certStack, siteStack, cdnAlarmsStack },
     siteContentPath,
+    alertEmail,
   ).build(app, "jasonduffett.net");
 
   return app;
@@ -69,8 +72,13 @@ export function buildApp({ account, siteContentPath }: BuildAppOptions): App {
 // Synth only when invoked as the cdk app entry. Importing from tests doesn't
 // trigger synth — keeps the wiring in one file without side-effecting on import.
 if (process.argv[1] && fileURLToPath(import.meta.url) === process.argv[1]) {
+  const alertEmail = process.env.ALERT_EMAIL;
+  if (!alertEmail) {
+    throw new Error("ALERT_EMAIL is required, e.g. `export ALERT_EMAIL=you@example.com`.");
+  }
   buildApp({
     account: process.env.CDK_DEFAULT_ACCOUNT,
     siteContentPath: resolve(import.meta.dirname, "..", "..", "site", "dist"),
+    alertEmail,
   }).synth();
 }

@@ -159,6 +159,16 @@
         "Threshold": 0,
         "TreatMissingData": "notBreaching"
       }
+    },
+    "jasonduffettnetusEast1AlertsEmailSubscriptionA22057C6": {
+      "Type": "AWS::SNS::Subscription",
+      "Properties": {
+        "Endpoint": "alerts@example.invalid",
+        "Protocol": "email",
+        "TopicArn": {
+          "Ref": "jasonduffettnetusEast1AlertsED7A8D43"
+        }
+      }
     }
   },
   "Outputs": {
