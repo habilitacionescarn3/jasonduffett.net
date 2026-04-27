@@ -50,12 +50,12 @@ export function buildApp({ account, siteContentPath }: BuildAppOptions): App {
     description: "jasonduffett.net — static site on CloudFront + S3.",
   });
 
-  // CloudFront metrics emit only in us-east-1; alarms must too. Kept separate
-  // from certStack to avoid a cdn↔cert cycle (cdnAlarms reads distribution id
-  // from siteStack, which depends on certStack).
+  // Kept separate from certStack to avoid a cdn↔cert cycle (this stack reads
+  // distribution id from siteStack, which depends on certStack). Logical id
+  // retains the "CdnAlarms" name so the deployed stack isn't replaced.
   const cdnAlarmsStack = new Stack(app, "JasonDuffettNetCdnAlarmsStack", {
     ...stackProps(CLOUDFRONT_CERT_REGION),
-    description: "CloudFront CloudWatch alarms (must live in us-east-1).",
+    description: "CloudWatch alarms for site metrics that AWS only emits in us-east-1.",
   });
 
   createSystem(
