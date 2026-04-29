@@ -13,6 +13,7 @@ import { EmailSubscription } from "aws-cdk-lib/aws-sns-subscriptions";
 
 import { compose, ref } from "@composurecdk/core";
 import { createCertificateBuilder, type CertificateBuilderResult } from "@composurecdk/acm";
+import { createBudgetBuilder } from "@composurecdk/budgets";
 import { alarmActionsPolicy } from "@composurecdk/cloudwatch";
 import {
   cloudfrontAliasTarget,
@@ -109,6 +110,16 @@ export function createSystem(stacks: SystemStacks, siteContentPath: string, aler
         .displayName("jasonduffett.net site alerts")
         .addSubscription("email", new EmailSubscription(alertEmail)),
 
+      // Notifies usEast1Alerts at AWS-recommended thresholds (80% actual, 100%
+      // forecasted). The builder auto-creates the SNS topic policy granting
+      // budgets.amazonaws.com:Publish — distinct from the alarmActionsPolicy
+      // wired in the afterBuild block below.
+      budget: createBudgetBuilder()
+        .budgetName("jasonduffett.net-monthly")
+        .limit({ amount: 3, unit: "GBP" })
+        .withRecommendedThresholds(ref<TopicBuilderResult>("usEast1Alerts").get("topic"))
+        .recommendedAlarms(false),
+
       // Site
       bucket: createBucketBuilder().accessLogging(true).removalPolicy(RemovalPolicy.RETAIN),
       cdn: createDistributionBuilder()
@@ -174,6 +185,7 @@ export function createSystem(stacks: SystemStacks, siteContentPath: string, aler
       cert: ["zone"],
       usEast1Alerts: [],
       siteAlerts: [],
+      budget: ["usEast1Alerts"],
       bucket: [],
       cdn: ["bucket", "cert"],
       cdnAlarms: ["cdn"],
@@ -189,6 +201,7 @@ export function createSystem(stacks: SystemStacks, siteContentPath: string, aler
       cert: certStack,
       usEast1Alerts: usEast1AlertsStack,
       siteAlerts: siteStack,
+      budget: usEast1AlertsStack,
       bucket: siteStack,
       cdn: siteStack,
       cdnAlarms: cdnAlarmsStack,
