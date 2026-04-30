@@ -1,5 +1,6 @@
 {
   "layout": "layouts/post.njk",
   "tags": ["music"],
-  "permalink": "/music/{{ page.fileSlug }}/"
+  "permalink": "/music/{{ page.fileSlug }}/",
+  "noLicense": true
 }

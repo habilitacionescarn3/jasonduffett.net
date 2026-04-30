@@ -32,7 +32,7 @@ This blog is written in Markdown, rendered by [Eleventy](https://www.11ty.dev/),
 
 No ads, no third-party tracking. There's optional Google Analytics if you opt in to it --- see the [privacy page]({{ '/privacy/' | rel }}) for what that means. If you want to hear about new posts, the [RSS feed]({{ '/feed.xml' | rel }}) is your friend.
 
-## copyright
+<h2 id="license">copyright</h2>
 
 The profile sketch of me is an original by my young daughter ((c) 2025 Clara Dineen-Duffett). All textual content is by me ((c) Jason Duffett). I make no claims on lyrics or musical scores in the arrangements I post --- these remain the property of the original copyright holders. Everything else is licensed under [CC BY 4.0](https://creativecommons.org/licenses/by/4.0/). Use it responsibly, attribute properly, don't be a dick.
 
