@@ -10,7 +10,9 @@
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <title>{% if title %}{{ title }} — {{ site.title }}{% else %}{{ site.title }} — {{ site.tagline }}{% endif %}</title>
   <meta name="description" content="{{ summary or site.description }}" />
+  <meta name="author" content="{{ site.author.name }}" />
   <meta name="theme-color" content="#0f0d0c" />
+  <link rel="canonical" href="{{ site.url }}{{ page.url }}" />
   <link rel="icon" href="{{ '/favicon.ico' | rel }}" sizes="32x32" />
   <link rel="icon" href="{{ '/favicon.svg' | rel }}" type="image/svg+xml" />
   <link rel="apple-touch-icon" href="{{ '/apple-touch-icon.png' | rel }}" />
@@ -21,6 +23,12 @@
   <meta property="og:description" content="{{ summary or site.description }}" />
   <meta property="og:type" content="{% if layout == 'layouts/post.njk' %}article{% else %}website{% endif %}" />
   <meta property="og:url" content="{{ site.url }}{{ page.url }}" />
+  <meta property="og:site_name" content="{{ site.title }}" />
+  <meta property="og:locale" content="en_GB" />
+  {% if layout == 'layouts/post.njk' %}
+  <meta property="article:published_time" content="{{ page.date | htmlDateString }}" />
+  <meta property="article:author" content="{{ site.author.name }}" />
+  {% endif %}
   {% include "partials/analytics.njk" %}
 </head>
 <body{% if pageCat %} data-category="{{ pageCat }}"{% endif %}>

@@ -4,7 +4,10 @@
   "description": "Notes on technology and music, by Jason Duffett.",
   "url": "https://jasonduffett.net",
   "author": {
-    "name": "Jason Duffett"
+    "name": "Jason Duffett",
+    "jobTitle": "Software engineer",
+    "location": "Edinburgh, Scotland",
+    "sameAs": ["https://github.com/laazyj", "https://www.linkedin.com/in/jasonduffett/"]
   },
-  "language": "en"
+  "language": "en-GB"
 }
