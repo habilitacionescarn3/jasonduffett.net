@@ -18,6 +18,16 @@ eleventyExcludeFromCollections: true
   </figure>
 </section>
 
+{% set latest = collections.posts | last %}
+{% if latest %}
+{% set latestCat = latest.data.tags | category %}
+<p class="currently"{% if latestCat %} data-category="{{ latestCat }}"{% endif %}>
+  <span class="currently-label">currently</span>
+  <span class="currently-arrow" aria-hidden="true">&rarr;</span>
+  <a href="{{ latest.url | rel }}">{{ latest.data.title }}</a>
+</p>
+{% endif %}
+
 <div class="section-heading">
   {% include "partials/ornaments/sparkle.njk" %}
   <span>recent things</span>
