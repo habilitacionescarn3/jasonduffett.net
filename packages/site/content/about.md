@@ -20,6 +20,12 @@ This site is where it all converges. The [tech]({{ '/tech/' | rel }}) posts are 
 
 I write when I feel like it and there will often be long periods of inactivity as my attention goes elsewhere. In this content/slop-rich world, I doubt anyone will notice.
 
+If, for some reason, you want to see more Jason Duffett, try these links
+
+- [GitHub (laazyj)](https://github.com/laazyj)
+- [LinkedIn](https://www.linkedin.com/in/jasonduffett/)
+- [UkeHoot Edinburgh](https://ukehoot.net/)
+
 ## technical
 
 This blog is written in Markdown, rendered by [Eleventy](https://www.11ty.dev/), with infrastructure composed and managed in AWS using the excellent [composureCDK](https://github.com/laazyj/composureCDK).
