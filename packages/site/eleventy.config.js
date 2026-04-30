@@ -1,5 +1,6 @@
 import fs from "node:fs";
 import path from "node:path";
+import process from "node:process";
 import { fileURLToPath } from "node:url";
 import rssPlugin from "@11ty/eleventy-plugin-rss";
 import syntaxHighlight from "@11ty/eleventy-plugin-syntaxhighlight";
@@ -22,6 +23,9 @@ export default function (eleventyConfig) {
 
   eleventyConfig.addGlobalData("currentYear", () => new Date().getFullYear());
   eleventyConfig.addGlobalData("categories", CATEGORIES);
+  eleventyConfig.addGlobalData("analytics", () => ({
+    measurementId: process.env.GA_MEASUREMENT_ID || null,
+  }));
 
   eleventyConfig.addFilter("category", (tags) =>
     Array.isArray(tags) ? CATEGORIES.find((c) => tags.includes(c)) : undefined,

@@ -24,7 +24,7 @@ I write when I feel like it and there will often be long periods of inactivity a
 
 This blog is written in Markdown, rendered by [Eleventy](https://www.11ty.dev/), with infrastructure composed and managed in AWS using the excellent [composureCDK](https://github.com/laazyj/composureCDK).
 
-No ads, no tracking, minimal analytics. If you want to hear about new posts, the [RSS feed]({{ '/feed.xml' | rel }}) is your friend.
+No ads, no third-party tracking. There's optional Google Analytics if you opt in to it --- see the [privacy page]({{ '/privacy/' | rel }}) for what that means. If you want to hear about new posts, the [RSS feed]({{ '/feed.xml' | rel }}) is your friend.
 
 ## copyright
 

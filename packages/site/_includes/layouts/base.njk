@@ -21,6 +21,7 @@
   <meta property="og:description" content="{{ summary or site.description }}" />
   <meta property="og:type" content="{% if layout == 'layouts/post.njk' %}article{% else %}website{% endif %}" />
   <meta property="og:url" content="{{ site.url }}{{ page.url }}" />
+  {% include "partials/analytics.njk" %}
 </head>
 <body{% if pageCat %} data-category="{{ pageCat }}"{% endif %}>
   {% include "partials/ornaments/defs.njk" %}
@@ -48,9 +49,11 @@
         &copy; {{ currentYear }} {{ site.author.name }}
         · <a href="{{ '/feed.xml' | rel }}">rss</a>
         · <a href="{{ '/about/' | rel }}">about</a>
+        {% if analytics.measurementId %}· <a href="#" data-consent-reopen>cookies</a>{% endif %}
       </span>
     </footer>
 
   </div>
+  {% include "partials/consent-banner.njk" %}
 </body>
 </html>

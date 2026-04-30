@@ -17,6 +17,10 @@ npm run site:build     # write ./packages/site/dist
 Posts live under `packages/site/content/tech/` or `packages/site/content/music/` as
 Markdown; layout and permalink come from each directory's `*.json` data file.
 
+Set `GA_MEASUREMENT_ID` at build time to enable Google Analytics 4 and the cookie
+consent banner; leave it unset to ship the site without any analytics. See
+`packages/site/.env.example`.
+
 ## Scripts
 
 Nx orchestrates all per-package work (build/test/typecheck/clean) and caches results. The
