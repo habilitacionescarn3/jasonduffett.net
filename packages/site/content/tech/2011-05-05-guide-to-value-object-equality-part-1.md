@@ -1,6 +1,8 @@
 ---
 title: "A guide to value object equality in .NET (Part 1)"
 date: 2011-05-05
+series: value-object-equality
+seriesPart: 1
 summary: "This is a guide to providing equality functionality to Value type classes in .NET. These are complex, immutable classes that behave like a value type."
 originalUrl: "https://jasonduffett.net/post/5220416027/guide-to-value-object-equality-part-1"
 originalId: "5220416027"

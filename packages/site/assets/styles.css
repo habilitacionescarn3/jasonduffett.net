@@ -25,13 +25,13 @@
   --mono: "JetBrains Mono", ui-monospace, Menlo, monospace;
 }
 
-body[data-category="tech"] {
+[data-category="tech"] {
   --accent: var(--tech);
 }
-body[data-category="music"] {
+[data-category="music"] {
   --accent: var(--music);
 }
-body[data-category="misc"] {
+[data-category="misc"] {
   --accent: var(--misc);
 }
 
@@ -302,16 +302,6 @@ header.site nav .nav-misc[aria-current="page"] {
   }
 }
 
-.currently[data-category="tech"] {
-  --accent: var(--tech);
-}
-.currently[data-category="music"] {
-  --accent: var(--music);
-}
-.currently[data-category="misc"] {
-  --accent: var(--misc);
-}
-
 .currently .currently-label {
   color: var(--muted);
   letter-spacing: 0.01em;
@@ -418,16 +408,6 @@ ul.posts li {
   --accent: var(--paper-dim);
 }
 
-ul.posts li[data-category="tech"] {
-  --accent: var(--tech);
-}
-ul.posts li[data-category="music"] {
-  --accent: var(--music);
-}
-ul.posts li[data-category="misc"] {
-  --accent: var(--misc);
-}
-
 ul.posts li .orn-sparkle {
   width: 0.8rem;
   height: 0.8rem;
@@ -489,6 +469,77 @@ ul.posts .tag {
   ul.posts li .tag {
     display: none;
   }
+}
+
+/* ------------------------------ Threads (home) ------------------- */
+.threads {
+  list-style: none;
+  padding: 0;
+  margin: 0 0 1rem;
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 1.5rem;
+}
+
+@media (min-width: 720px) {
+  .threads {
+    grid-template-columns: 1fr 1fr;
+    gap: 2rem;
+  }
+}
+
+.thread {
+  --accent: var(--paper-dim);
+  border: 1px dashed var(--rule);
+  border-left: 3px solid var(--accent);
+  padding: 1.1rem 1.25rem 1.25rem;
+  background: var(--ink-2);
+}
+
+.thread-title {
+  font-family: var(--hand);
+  font-weight: 700;
+  font-size: 1.55rem;
+  line-height: 1.1;
+  color: var(--accent);
+  margin: 0 0 0.85rem;
+}
+
+.thread-parts {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  display: grid;
+  gap: 0.55rem;
+}
+
+.thread-parts li {
+  display: grid;
+  grid-template-columns: 1.6rem 1fr;
+  gap: 0.6rem;
+  align-items: baseline;
+}
+
+.thread-part-num {
+  font-family: var(--mono);
+  font-size: 0.78rem;
+  color: var(--muted);
+  font-variant-numeric: tabular-nums;
+  letter-spacing: 0.02em;
+}
+
+.thread-parts a {
+  color: var(--paper);
+  text-decoration: none;
+  font-family: var(--serif);
+  font-size: 0.98rem;
+  line-height: 1.35;
+  transition: color 0.15s ease;
+}
+
+.thread-parts a:hover,
+.thread-parts a:focus-visible {
+  color: var(--accent);
 }
 
 /* ------------------------------ Tags ----------------------------- */

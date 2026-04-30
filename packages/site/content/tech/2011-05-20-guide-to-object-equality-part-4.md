@@ -1,6 +1,8 @@
 ---
 title: "A guide to object equality in .NET (part 4)"
 date: 2011-05-20
+series: value-object-equality
+seriesPart: 4
 summary: "The IEquality interface."
 originalUrl: "https://jasonduffett.net/post/5663782953/guide-to-object-equality-part-4"
 originalId: "5663782953"

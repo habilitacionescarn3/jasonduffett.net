@@ -1,0 +1,24 @@
+{% if collections.seriesIndex.length %}
+<div class="section-heading">
+  {% include "partials/ornaments/sparkle.njk" %}
+  <span>threads</span>
+</div>
+
+<ul class="threads">
+  {% for thread in collections.seriesIndex %}
+  {% set firstPost = thread.posts[0] %}
+  {% set threadCat = firstPost.data.tags | category %}
+  <li class="thread"{% if threadCat %} data-category="{{ threadCat }}"{% endif %}>
+    <h3 class="thread-title">{{ seriesTitles[thread.key] or thread.key }}</h3>
+    <ol class="thread-parts">
+      {% for post in thread.posts %}
+      <li>
+        <span class="thread-part-num">{{ post.data.seriesPart }}</span>
+        <a href="{{ post.url | rel }}">{{ post.data.title }}</a>
+      </li>
+      {% endfor %}
+    </ol>
+  </li>
+  {% endfor %}
+</ul>
+{% endif %}

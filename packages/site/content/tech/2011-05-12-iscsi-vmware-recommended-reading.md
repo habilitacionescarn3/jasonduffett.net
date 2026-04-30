@@ -1,6 +1,8 @@
 ---
 title: "iSCSI, VMware recommended reading"
 date: 2011-05-12
+series: iscsi-vmware
+seriesPart: 2
 summary: "If you are setting up a VMware environment using iSCSI storage (especially EqualLogic) then I recommend reading these links:"
 originalUrl: "https://jasonduffett.net/post/5416982514/iscsi-vmware-recommended-reading"
 originalId: "5416982514"

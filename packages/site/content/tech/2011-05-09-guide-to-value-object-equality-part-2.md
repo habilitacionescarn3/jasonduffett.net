@@ -1,6 +1,8 @@
 ---
 title: "A guide to value object equality in .NET (part 2)"
 date: 2011-05-09
+series: value-object-equality
+seriesPart: 2
 summary: "In the 2nd part of the series I’ll explain the GetHashCode() method and how you should implement this in your value-type classes."
 originalUrl: "https://jasonduffett.net/post/5330529943/guide-to-value-object-equality-part-2"
 originalId: "5330529943"

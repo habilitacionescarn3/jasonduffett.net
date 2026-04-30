@@ -83,6 +83,22 @@ export default function (eleventyConfig) {
       .sort((a, b) => a.date - b.date),
   );
 
+  eleventyConfig.addCollection("seriesIndex", (api) => {
+    const groups = new Map();
+    for (const item of api.getAll()) {
+      const key = item.data.series;
+      if (!key) continue;
+      if (!groups.has(key)) groups.set(key, []);
+      groups.get(key).push(item);
+    }
+    const threads = [...groups.entries()].map(([key, posts]) => ({
+      key,
+      posts: posts.sort((a, b) => a.data.seriesPart - b.data.seriesPart),
+    }));
+    const latestDate = (thread) => Math.max(...thread.posts.map((p) => p.date.getTime()));
+    return threads.sort((a, b) => latestDate(b) - latestDate(a));
+  });
+
   return {
     dir: {
       input: "content",

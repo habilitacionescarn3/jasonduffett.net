@@ -1,6 +1,8 @@
 ---
 title: "A guide to value object equality in .NET (part 3)"
 date: 2011-05-08
+series: value-object-equality
+seriesPart: 3
 summary: "In the 3rd part of this series I’ll show the tests I used to define, and confirm, my assumptions on how comparison of the EmailAddress object should work."
 originalUrl: "https://jasonduffett.net/post/5304097697/guide-to-value-object-equality-part-3"
 originalId: "5304097697"

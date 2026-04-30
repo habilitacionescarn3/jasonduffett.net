@@ -1,6 +1,8 @@
 ---
 title: "Recommended iSCSI configuration for VMware ESXi"
 date: 2011-05-10
+series: iscsi-vmware
+seriesPart: 1
 summary: "I’ve recently been working with a couple of VMware environments using Dell EqualLogic and MD3000i iSCSI SANs, and developed the attached PowerShell script fo…"
 originalUrl: "https://jasonduffett.net/post/5356826166/iscsi-configuration-for-vmware-esxi"
 originalId: "5356826166"
