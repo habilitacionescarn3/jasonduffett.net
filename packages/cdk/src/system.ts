@@ -1,4 +1,4 @@
-import { type CfnResource, Duration, Fn, RemovalPolicy, type Stack } from "aws-cdk-lib";
+import { type CfnResource, Duration, Fn, type Stack } from "aws-cdk-lib";
 import {
   FunctionCode,
   FunctionEventType,
@@ -47,6 +47,11 @@ import { DOMAIN, WWW, ZONE_RECORDS } from "./zone-records.js";
 // this stack. Records intentionally get path-derived IDs; recreating them is
 // cheap.
 const HOSTED_ZONE_LOGICAL_ID = "HostedZone";
+
+// 90 days is shorter than the package default of 731 days, but ample audit
+// runway for a personal blog and well below the threshold where stored log
+// volume meaningfully shows up against the budget alarm.
+const LOG_BUCKET_LIFECYCLE_RULES = [{ expiration: Duration.days(90) }];
 
 export interface SystemStacks {
   /** Route 53 hosted zone + records. Region is cosmetic — Route 53 is global. */
@@ -120,14 +125,25 @@ export function createSystem(stacks: SystemStacks, siteContentPath: string, aler
         .withRecommendedThresholds(ref<TopicBuilderResult>("usEast1Alerts").get("topic"))
         .recommendedAlarms(false),
 
-      // Site
-      bucket: createBucketBuilder().accessLogging(true).removalPolicy(RemovalPolicy.RETAIN),
+      // Site. Builder defaults give us versioning, RETAIN, server access logging,
+      // 7-day multipart abort, and 365-day noncurrent expiration; only override
+      // where the personal-blog scale wants tighter retention than the defaults.
+      bucket: createBucketBuilder()
+        .serverAccessLogs({
+          prefix: "logs/",
+          configure: (sub) => sub.lifecycleRules(LOG_BUCKET_LIFECYCLE_RULES),
+        })
+        .lifecycleRules([{ noncurrentVersionExpiration: Duration.days(30) }]),
       cdn: createDistributionBuilder()
         .comment("jasonduffett.net")
         .domainNames([DOMAIN, WWW])
         .certificate(certificate)
         .defaultRootObject("index.html")
         .priceClass(PriceClass.PRICE_CLASS_100)
+        .accessLogs({
+          prefix: "logs/",
+          configure: (sub) => sub.lifecycleRules(LOG_BUCKET_LIFECYCLE_RULES),
+        })
         .origin(bucket.map((b) => S3BucketOrigin.withOriginAccessControl(b)))
         .defaultBehavior({
           viewerProtocolPolicy: ViewerProtocolPolicy.REDIRECT_TO_HTTPS,
