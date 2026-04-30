@@ -62,6 +62,8 @@ export default function (eleventyConfig) {
 
   eleventyConfig.addFilter("htmlDateString", (date) => toDate(date).toISOString().slice(0, 10));
 
+  eleventyConfig.addFilter("year", (date) => toDate(date).getFullYear());
+
   eleventyConfig.addFilter("readingTime", (input) => {
     if (!input) return 0;
     const text = String(input).replace(/<[^>]+>/g, " ");

@@ -1,0 +1,32 @@
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@graph": [
+    {
+      "@type": "WebSite",
+      "@id": "{{ site.url }}/#website",
+      "url": "{{ site.url }}/",
+      "name": {{ site.title | dump | safe }},
+      "description": {{ site.description | dump | safe }},
+      "inLanguage": "{{ site.language }}",
+      "publisher": { "@id": "{{ site.author.id }}" }{% if showLicense %},
+      "license": "{{ site.defaultLicense }}"{% endif %}
+    },
+    {
+      "@type": "Person",
+      "@id": "{{ site.author.id }}",
+      "name": {{ site.author.name | dump | safe }},
+      "url": "{{ site.url }}/about/",
+      "jobTitle": {{ site.author.jobTitle | dump | safe }},
+      "homeLocation": {{ site.author.location | dump | safe }},
+      "image": "{{ site.url }}{{ site.author.image }}",
+      "sameAs": {{ site.author.sameAs | dump | safe }},
+      "affiliation": {
+        "@type": "Organization",
+        "name": {{ site.author.affiliation.name | dump | safe }},
+        "url": "{{ site.author.affiliation.url }}"
+      }
+    }
+  ]
+}
+</script>

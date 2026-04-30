@@ -35,6 +35,9 @@
   {% if layout == 'layouts/post.njk' %}
   <meta property="article:published_time" content="{{ page.date | htmlDateString }}" />
   <meta property="article:author" content="{{ site.author.name }}" />
+  {% include "partials/jsonld-post.njk" %}
+  {% else %}
+  {% include "partials/jsonld-site.njk" %}
   {% endif %}
   {% include "partials/analytics.njk" %}
 </head>

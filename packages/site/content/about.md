@@ -6,7 +6,7 @@ eleventyExcludeFromCollections: true
 ---
 
 <div class="about-layout">
-<div class="about-prose">
+<div class="about-prose" id="person">
 
 # about
 

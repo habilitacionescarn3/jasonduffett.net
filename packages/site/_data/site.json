@@ -4,10 +4,16 @@
   "description": "Notes on technology and music, by Jason Duffett.",
   "url": "https://jasonduffett.net",
   "author": {
+    "id": "https://jasonduffett.net/about/#person",
     "name": "Jason Duffett",
     "jobTitle": "Software engineer",
     "location": "Edinburgh, Scotland",
-    "sameAs": ["https://github.com/laazyj", "https://www.linkedin.com/in/jasonduffett/"]
+    "image": "/assets/sketch-profile.jpeg",
+    "sameAs": ["https://github.com/laazyj", "https://www.linkedin.com/in/jasonduffett/"],
+    "affiliation": {
+      "name": "UkeHoot Edinburgh",
+      "url": "https://ukehoot.net/"
+    }
   },
   "language": "en-GB",
   "defaultLicense": "https://creativecommons.org/licenses/by/4.0/",
