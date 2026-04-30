@@ -6,6 +6,7 @@ layout: layouts/base.njk
     <h1>{{ title }}</h1>
     <div class="meta">
       <time datetime="{{ page.date | htmlDateString }}">{{ page.date | readableDate }}</time>
+      <address class="byline">by <a rel="author" href="{{ '/about/' | rel }}">{{ site.author.name }}</a></address>
       {% set cat = tags | category %}
       {% if cat %}<span class="tag {{ cat }}">{{ cat }}</span>{% endif %}
       <span class="reading-time">{{ content | readingTime }} min read</span>
