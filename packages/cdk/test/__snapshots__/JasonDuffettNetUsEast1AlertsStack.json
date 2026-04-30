@@ -179,8 +179,8 @@
       "Properties": {
         "Budget": {
           "BudgetLimit": {
-            "Amount": 3,
-            "Unit": "GBP"
+            "Amount": 4,
+            "Unit": "USD"
           },
           "BudgetName": "jasonduffett.net-monthly",
           "BudgetType": "COST",

@@ -116,7 +116,7 @@ export function createSystem(stacks: SystemStacks, siteContentPath: string, aler
       // wired in the afterBuild block below.
       budget: createBudgetBuilder()
         .budgetName("jasonduffett.net-monthly")
-        .limit({ amount: 3, unit: "GBP" })
+        .limit({ amount: 4, unit: "USD" })
         .withRecommendedThresholds(ref<TopicBuilderResult>("usEast1Alerts").get("topic"))
         .recommendedAlarms(false),
 
