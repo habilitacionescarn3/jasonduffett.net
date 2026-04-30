@@ -402,10 +402,14 @@ ul.posts li {
   border-bottom: 1px dashed var(--rule);
   padding: 0.95rem 0;
   display: grid;
-  grid-template-columns: auto 5rem 1fr auto;
+  grid-template-columns: auto 6.5rem 1fr auto;
   gap: 0.9rem;
   align-items: baseline;
   --accent: var(--paper-dim);
+}
+
+ul.posts .post-meta {
+  white-space: nowrap;
 }
 
 ul.posts li .orn-sparkle {
@@ -423,12 +427,17 @@ ul.posts li:hover .orn-sparkle {
   transform: rotate(45deg) scale(1.15);
 }
 
-ul.posts time {
+ul.posts time,
+ul.posts .reading-time {
   font-family: var(--mono);
   font-size: 0.78rem;
   color: var(--muted);
   font-variant-numeric: tabular-nums;
   letter-spacing: 0.02em;
+}
+
+ul.posts .reading-time::before {
+  content: " · ";
 }
 
 ul.posts a.title {
@@ -459,7 +468,7 @@ ul.posts .tag {
   ul.posts li .orn-sparkle {
     grid-row: 1;
   }
-  ul.posts li time {
+  ul.posts li .post-meta {
     grid-row: 1;
   }
   ul.posts li a.title {

@@ -62,6 +62,13 @@ export default function (eleventyConfig) {
 
   eleventyConfig.addFilter("htmlDateString", (date) => toDate(date).toISOString().slice(0, 10));
 
+  eleventyConfig.addFilter("readingTime", (input) => {
+    if (!input) return 0;
+    const text = String(input).replace(/<[^>]+>/g, " ");
+    const words = text.split(/\s+/).filter(Boolean).length;
+    return Math.max(1, Math.round(words / 225));
+  });
+
   // Group a collection into [{ year, posts[] }] in reverse-chronological order.
   eleventyConfig.addFilter("byYear", (posts) => {
     const groups = new Map();

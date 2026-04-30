@@ -8,6 +8,7 @@ layout: layouts/base.njk
       <time datetime="{{ page.date | htmlDateString }}">{{ page.date | readableDate }}</time>
       {% set cat = tags | category %}
       {% if cat %}<span class="tag {{ cat }}">{{ cat }}</span>{% endif %}
+      <span class="reading-time">{{ content | readingTime }} min read</span>
     </div>
     <span class="post-divider">{% include "partials/ornaments/squiggle.njk" %}</span>
   </header>
