@@ -4,7 +4,7 @@ eleventyExcludeFromCollections: true
 metadata:
   title: Jason Duffett
   subtitle: these things I do
-  language: en
+  language: en-GB
   url: https://jasonduffett.net/
   feedUrl: https://jasonduffett.net/feed.xml
   author:
@@ -28,6 +28,7 @@ metadata:
     <link href="{{ absolutePostUrl }}" />
     <updated>{{ post.date | dateToRfc3339 }}</updated>
     <id>{{ absolutePostUrl }}</id>
+    {% if not post.data.noLicense %}<rights>© {{ post.date | year }} {{ metadata.author.name }}, {{ site.licenseName }}</rights>{% endif %}
     <content type="html">{{ post.templateContent | htmlToAbsoluteUrls(absolutePostUrl) }}</content>
   </entry>
   {% endfor %}
