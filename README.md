@@ -107,6 +107,8 @@ then:
 
 ```sh
 export ALERT_EMAIL=you@example.com
+export GA_MEASUREMENT_ID=G-XXXXXXXXXX
+npm run site:build   # build site content
 npm run cdk:synth    # render CloudFormation
 npm run cdk:diff     # preview changes
 npm run cdk:deploy   # apply (all stacks)
