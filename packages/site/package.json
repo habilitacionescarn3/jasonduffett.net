@@ -11,6 +11,15 @@
   },
   "nx": {
     "targets": {
+      "build": {
+        "inputs": [
+          "default",
+          "^default",
+          {
+            "env": "GA_MEASUREMENT_ID"
+          }
+        ]
+      },
       "start": {
         "cache": false
       }

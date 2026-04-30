@@ -27,6 +27,19 @@
           "build",
           "@jasonduffett-net/site:build"
         ],
+        "inputs": [
+          "default",
+          "^default",
+          {
+            "env": "ALERT_EMAIL"
+          },
+          {
+            "env": "CDK_DEFAULT_ACCOUNT"
+          },
+          {
+            "env": "CDK_DEFAULT_REGION"
+          }
+        ],
         "outputs": [
           "{projectRoot}/cdk.out"
         ],
