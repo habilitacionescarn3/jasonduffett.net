@@ -18,8 +18,6 @@
     "cdk:deploy": "nx run @jasonduffett-net/cdk:deploy",
     "cdk:deploy:stack": "nx run @jasonduffett-net/cdk:deploy:stack",
     "indexnow:ping": "nx run @jasonduffett-net/cdk:indexnow:ping",
-    "cdk:test": "nx run @jasonduffett-net/cdk:test",
-    "cdk:test:update": "nx run @jasonduffett-net/cdk:test -- -u",
     "site:build": "nx run @jasonduffett-net/site:build",
     "site:start": "nx run @jasonduffett-net/site:start",
     "site:clean": "nx run @jasonduffett-net/site:clean",

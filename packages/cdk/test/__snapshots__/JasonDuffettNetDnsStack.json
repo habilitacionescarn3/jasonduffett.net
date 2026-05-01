@@ -177,6 +177,20 @@
         "Type": "TXT"
       }
     },
+    "jasonduffettnetrecordstxtatprotoA01EE8C6": {
+      "Type": "AWS::Route53::RecordSet",
+      "Properties": {
+        "HostedZoneId": {
+          "Ref": "HostedZone"
+        },
+        "Name": "_atproto.jasonduffett.net.",
+        "ResourceRecords": [
+          "\"did=did:plc:yevvsqyzhqe5mj7qbtrlnitu\""
+        ],
+        "TTL": "300",
+        "Type": "TXT"
+      }
+    },
     "jasonduffettnetrecordstxtdmarc6385403B": {
       "Type": "AWS::Route53::RecordSet",
       "Properties": {
