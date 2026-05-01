@@ -18,5 +18,6 @@
   "language": "en-GB",
   "defaultLicense": "https://creativecommons.org/licenses/by/4.0/",
   "licenseName": "CC BY 4.0",
-  "licensePolicyUrl": "/about/#license"
+  "licensePolicyUrl": "/about/#license",
+  "defaultOgImage": "/og/_default.png"
 }

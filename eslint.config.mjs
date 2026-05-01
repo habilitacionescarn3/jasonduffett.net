@@ -16,6 +16,7 @@ export default defineConfig(
           allowDefaultProject: [
             "eslint.config.mjs",
             "packages/site/eleventy.config.js",
+            "packages/site/scripts/*.mjs",
             "packages/cdk/scripts/*.mjs",
           ],
         },
@@ -27,7 +28,11 @@ export default defineConfig(
     extends: [tseslint.configs.disableTypeChecked],
   },
   {
-    files: ["packages/cdk/scripts/*.mjs"],
+    files: [
+      "packages/cdk/scripts/*.mjs",
+      "packages/site/scripts/*.mjs",
+      "packages/site/eleventy.config.js",
+    ],
     languageOptions: {
       globals: {
         process: "readonly",

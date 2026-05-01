@@ -26,12 +26,20 @@
   <link rel="manifest" href="{{ '/site.webmanifest' | rel }}" />
   <link rel="stylesheet" href="{{ '/assets/styles.css' | rel }}" />
   <link rel="alternate" type="application/rss+xml" href="{{ '/feed.xml' | rel }}" title="{{ site.title }}" />
+  {% set ogImageUrl = site.url + ('/og/' + page.fileSlug + '.png' if layout == 'layouts/post.njk' else site.defaultOgImage) %}
   <meta property="og:title" content="{% if title %}{{ title }}{% else %}{{ site.title }}{% endif %}" />
   <meta property="og:description" content="{{ summary or site.description }}" />
   <meta property="og:type" content="{% if layout == 'layouts/post.njk' %}article{% else %}website{% endif %}" />
   <meta property="og:url" content="{{ site.url }}{{ page.url }}" />
   <meta property="og:site_name" content="{{ site.title }}" />
   <meta property="og:locale" content="en_GB" />
+  <meta property="og:image" content="{{ ogImageUrl }}" />
+  <meta property="og:image:width" content="1200" />
+  <meta property="og:image:height" content="630" />
+  <meta name="twitter:card" content="summary_large_image" />
+  <meta name="twitter:title" content="{% if title %}{{ title }}{% else %}{{ site.title }}{% endif %}" />
+  <meta name="twitter:description" content="{{ summary or site.description }}" />
+  <meta name="twitter:image" content="{{ ogImageUrl }}" />
   {% if layout == 'layouts/post.njk' %}
   <meta property="article:published_time" content="{{ page.date | htmlDateString }}" />
   <meta property="article:author" content="{{ site.author.name }}" />

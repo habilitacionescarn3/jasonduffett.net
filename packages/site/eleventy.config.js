@@ -96,6 +96,16 @@ export default function (eleventyConfig) {
       .sort((a, b) => a.date - b.date),
   );
 
+  eleventyConfig.on("eleventy.after", async ({ dir }) => {
+    const { buildOg } = await import("./scripts/build-og.mjs");
+    const count = await buildOg({
+      distDir: dir.output,
+      sitePackageDir: __dirname,
+      categories: CATEGORIES,
+    });
+    console.log(`[og] generated ${count} card${count === 1 ? "" : "s"}`);
+  });
+
   eleventyConfig.addCollection("seriesIndex", (api) => {
     const groups = new Map();
     for (const item of api.getAll()) {
