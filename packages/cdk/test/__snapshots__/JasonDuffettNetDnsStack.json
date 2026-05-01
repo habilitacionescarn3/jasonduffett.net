@@ -170,7 +170,8 @@
         "Name": "jasonduffett.net.",
         "ResourceRecords": [
           "\"MS=ms66482160\"",
-          "\"v=spf1 mx a include:_spf.livemail.co.uk ~all\""
+          "\"v=spf1 mx a include:_spf.livemail.co.uk ~all\"",
+          "\"google-site-verification=uMo74nrnCmnOsuNvR-lDVljJFLVyfUfMaRv-BphhXYI\""
         ],
         "TTL": "300",
         "Type": "TXT"

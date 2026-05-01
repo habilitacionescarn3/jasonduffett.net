@@ -30,6 +30,7 @@ export const ZONE_RECORDS: readonly RecordSpec[] = [
   // Mail policy + verification (TXT)
   TXT("@", "MS=ms66482160"),
   TXT("@", "v=spf1 mx a include:_spf.livemail.co.uk ~all"),
+  TXT("@", "google-site-verification=uMo74nrnCmnOsuNvR-lDVljJFLVyfUfMaRv-BphhXYI"),
   TXT("_dmarc", "v=DMARC1; p=none;"),
   TXT("dzc.nuget", "K2G6Wa8y"),
 ];
