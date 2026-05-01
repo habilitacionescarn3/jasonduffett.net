@@ -81,10 +81,11 @@ from these references, so no `addDependency` calls are needed.
 ### One-off scripts
 
 ```sh
-npx nx run @jasonduffett-net/cdk:check:redirects  # validate live 301s match redirects.json
+npm run site:smoke              # post-deploy smoke (homepage, feed, sitemap, sample, 404, www→apex)
+npm run site:check-redirects    # validate live 301s match redirects.json
 ```
 
-(No root-level alias — this is a manual post-deploy check, not part of the standard flow.)
+CI runs both after every deploy. They're exposed as root scripts for ad-hoc runs.
 
 `redirects.json` is committed and derived from each post's `originalUrl` frontmatter; there
 is no regeneration step. Run `check:redirects` after a deploy (or against any `BASE_URL`)
@@ -100,10 +101,14 @@ npx nx graph                             # open the task/dependency graph
 
 ## Deploying
 
+Pushes to `main` deploy automatically — see [Continuous deployment](#continuous-deployment)
+below. The manual flow here is the fallback for emergencies or first-time bootstrap.
+
 The CDK app uses the standard `CDK_DEFAULT_ACCOUNT` / `CDK_DEFAULT_REGION` environment
 variables, plus `ALERT_EMAIL` (the address subscribed to both alarm topics — synth fails
-if it is unset). Authenticate with the target AWS account first (e.g. `aws sso login`),
-then:
+if it is unset). Authenticate with the target AWS account first (e.g.
+`aws sso login --profile jasonduffett.net`, then `export AWS_PROFILE=jasonduffett.net`
+for the rest of the shell), then:
 
 ```sh
 export ALERT_EMAIL=you@example.com
@@ -144,6 +149,46 @@ ACCOUNT=$(aws sts get-caller-identity --query Account --output text)
 npx cdk bootstrap aws://$ACCOUNT/eu-west-2   # DNS + Site stacks
 npx cdk bootstrap aws://$ACCOUNT/us-east-1   # Cert stack (CloudFront requirement)
 ```
+
+## Continuous deployment
+
+`main` auto-deploys via GitHub Actions:
+
+- **`.github/workflows/pr.yml`** — runs on every PR: lint, format, build, test, plus
+  `cdk diff` posted as a comment so infra changes are visible at review time.
+- **`.github/workflows/deploy.yml`** — runs on push to `main`: full verify, fresh
+  `site:build` (with `GITHUB_SHA` baked into a `<meta name="build-sha">` tag),
+  `cdk deploy --all`, post-deploy smoke test (`packages/cdk/scripts/smoke-test.mjs`),
+  redirect compatibility check, and IndexNow ping. A failure on any step fails the
+  workflow; GitHub emails the repo owner by default.
+
+Both workflows authenticate to AWS via OpenID Connect — there are no long-lived AWS
+keys in GitHub. The OIDC provider and the deploy role are managed as a CDK stack
+(`JasonDuffettNetCiOidcStack`) so the trust policy lives in source control.
+
+### CI bootstrap (one-time)
+
+After the standard `cdk bootstrap` in [First-time setup](#first-time-setup), deploy the
+OIDC stack locally:
+
+```sh
+ALERT_EMAIL=you@example.com npm run cdk:deploy:stack -- JasonDuffettNetCiOidcStack
+```
+
+The stack outputs `GitHubActionsDeployRoleArn`. Configure GitHub:
+
+- **Repository secrets** (Settings → Secrets and variables → Actions → Secrets):
+  - `AWS_DEPLOY_ROLE_ARN` — the role ARN from the stack output.
+  - `ALERT_EMAIL` — same address used for the alarm topics.
+  - `INDEXNOW_KEY` — the IndexNow key (matches `packages/site/static/<key>.txt`).
+- **Repository variables** (same page → Variables tab):
+  - `GA_MEASUREMENT_ID` — `G-XXXXXXXXXX` (public; not a secret).
+- **Branch protection on `main`** (Settings → Branches): require a pull request before
+  merging and require the `verify` status check to pass.
+
+The deploy role's trust policy is restricted to `repo:laazyj/jasonduffett.net:*` — forks
+run workflows under their own OIDC namespace and cannot assume the role, so making the
+repository public does not expand who can deploy.
 
 ## Domain delegation
 
