@@ -15,7 +15,8 @@
     "deploy": "cdk deploy --all",
     "deploy:stack": "cdk deploy",
     "diff": "cdk diff",
-    "check:redirects": "node scripts/check-redirects.mjs"
+    "check:redirects": "node scripts/check-redirects.mjs",
+    "indexnow:ping": "node scripts/indexnow-ping.mjs"
   },
   "nx": {
     "implicitDependencies": [
